@@ -22,6 +22,7 @@ public class AdminOperationsServiceImpl implements AdminOperationsService {
 
 	@Override
 	public HotelInformationBean addHotel(HotelInformationBean hotelBean) {
+		
 		if (hotelValidation.licenseValidation(hotelBean.getLicenseNumber())) {
 			return adminOperationsDao.addHotel(hotelBean);
 		} else {
@@ -73,12 +74,19 @@ public class AdminOperationsServiceImpl implements AdminOperationsService {
 
 	@Override
 	public EmployeeInformationBean addEmployee(EmployeeInformationBean employeeBean) {
-		if (userValidation.nameValidation(employeeBean.getName())
-				&& userValidation.emailValidation(employeeBean.getEmail())
-				&& userValidation.passwordValidation(employeeBean.getPassword())) {
-			return adminOperationsDao.addEmployee(employeeBean);
-		}
+		try {
+			if (userValidation.nameValidation(employeeBean.getName())
+					&& userValidation.emailValidation(employeeBean.getEmail())
+					&& userValidation.passwordValidation(employeeBean.getPassword())
+					&& hotelValidation.contactNumberValidation(employeeBean.getContactNumber())) {
+				return adminOperationsDao.addEmployee(employeeBean);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}	
 		return null;
+	
 	}
 
 	@Override
@@ -99,5 +107,10 @@ public class AdminOperationsServiceImpl implements AdminOperationsService {
 			return adminOperationsDao.updateEmployeeInformation(employeeBean);
 		}
 		return false;
+	}
+
+	@Override
+	public boolean licenseNumberPresent(String licenseNumber) {
+		return adminOperationsDao.licenseNumberPresent(licenseNumber);
 	}
 }

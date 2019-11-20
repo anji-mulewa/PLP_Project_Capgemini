@@ -206,7 +206,7 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		RoomInformationBean existingRoomInformation = entityManager.find(RoomInformationBean.class,
-				roomBean.getHotelId());
+				roomBean.getRoomId());
 		boolean isUpdated = false;
 		if (existingRoomInformation != null) {
 			String name = roomBean.getHotelName();
@@ -279,6 +279,9 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 		employeeInformation.setName(employeeBean.getName());
 		employeeInformation.setPassword(employeeBean.getPassword());
 		employeeInformation.setType("employee");
+		employeeInformation.setAddress(employeeBean.getAddress());
+		employeeInformation.setNationality(employeeBean.getNationality());
+		employeeInformation.setContactNumber(employeeBean.getContactNumber());
 		try {
 			transaction.begin();
 			entityManager.persist(employeeInformation);

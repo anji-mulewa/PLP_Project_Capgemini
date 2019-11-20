@@ -19,7 +19,39 @@ public class AdminEmployeeUserBean {
 	private String type;
 	@Column
 	private String name;
+	@Column
+	private String address;
+	@Column
+	private String nationality;
+	@Column
+	private String contactNumber;
 	
+	
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+	public String getContactNumber() {
+		return contactNumber;
+	}
+
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+
 	public String getName() {
 		return name;
 	}

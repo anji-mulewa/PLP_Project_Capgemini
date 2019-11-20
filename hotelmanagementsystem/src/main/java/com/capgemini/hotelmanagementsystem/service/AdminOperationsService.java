@@ -11,6 +11,8 @@ public interface AdminOperationsService {
 	public List<HotelInformationBean> getHotelList();
 	public boolean updateHotelInformation(HotelInformationBean hotelBean);
 	public boolean deleteHotelInformation(int hotelId);
+	public boolean licenseNumberPresent(String licenseNumber);
+
 	
 	//room crud operations
 	public RoomInformationBean addRoom (RoomInformationBean roomBean);

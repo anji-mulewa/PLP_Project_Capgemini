@@ -32,6 +32,7 @@ public class AdminOperationsController {
 		HotelManagementResponse response = new HotelManagementResponse();
 		HotelInformationBean hotelInformationBean = null;
 		try {
+			if(!adminOperationsService.licenseNumberPresent(hotelbean.getLicenseNumber())) {
 			hotelInformationBean = adminOperationsService.addHotel(hotelbean);
 			if (hotelInformationBean != null) {
 				response.setStatusCode(200);
@@ -42,6 +43,11 @@ public class AdminOperationsController {
 				response.setStatusCode(400);
 				response.setMessage("Failed");
 				response.setDescription("Unable to add hotel");
+			}
+			} else {
+				response.setStatusCode(400);
+				response.setMessage("Failed");
+				response.setDescription("Hotel alreday present ");
 			}
 		} catch (HotelManagementSystemException e) {
 			response.setStatusCode(400);
@@ -205,7 +211,7 @@ public class AdminOperationsController {
 			if (isUpdated) {
 				response.setStatusCode(200);
 				response.setMessage("Success");
-				response.setDescription("Hotel information updated successfully");
+				response.setDescription("Room information updated successfully");
 				response.setRoomInformationBean(roomBean);
 			} else {
 				response.setStatusCode(400);
