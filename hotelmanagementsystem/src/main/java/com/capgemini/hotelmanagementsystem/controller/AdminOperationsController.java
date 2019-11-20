@@ -44,6 +44,9 @@ public class AdminOperationsController {
 				response.setDescription("Unable to add hotel");
 			}
 		} catch (HotelManagementSystemException e) {
+			response.setStatusCode(400);
+			response.setMessage("Failed");
+			response.setDescription(e.getMessage());
 			System.out.println(e.getMessage());
 		}
 		return response;
@@ -64,7 +67,10 @@ public class AdminOperationsController {
 				response.setMessage("Failed");
 				response.setDescription("Hotel list can't be fetched");
 			}
-		} catch (HotelManagementSystemException e) {
+		} catch (Exception e) {
+			response.setStatusCode(400);
+			response.setMessage("Failed");
+			response.setDescription(e.getMessage());
 			System.out.println(e.getMessage());
 		}
 		return response;
@@ -86,6 +92,9 @@ public class AdminOperationsController {
 				response.setDescription("Hotel information not updated");
 			}
 		} catch (HotelManagementSystemException e) {
+			response.setStatusCode(400);
+			response.setMessage("Failed");
+			response.setDescription(e.getMessage());
 			System.err.println(e.getMessage());
 		}
 		return response;
@@ -106,7 +115,10 @@ public class AdminOperationsController {
 				response.setDescription("Hotel not deleted");
 				response.setMessage("Failed");
 			}
-		} catch (HotelManagementSystemException e) {
+		} catch (Exception e) {
+			response.setStatusCode(400);
+			response.setDescription(e.getMessage());
+			response.setMessage("Failed");
 			System.err.println(e.getMessage());
 		}
 		return response;
@@ -129,6 +141,9 @@ public class AdminOperationsController {
 				response.setMessage("Failed");
 			}
 		} catch (HotelManagementSystemException e) {
+			response.setStatusCode(400);
+			response.setDescription(e.getMessage());
+			response.setMessage("Failed");
 			System.err.println(e.getMessage());
 		}
 		return response;
@@ -150,6 +165,9 @@ public class AdminOperationsController {
 				response.setMessage("Failed");
 			}
 		} catch (HotelManagementSystemException e) {
+			response.setStatusCode(400);
+			response.setDescription(e.getMessage());
+			response.setMessage("Failed");
 			System.err.println(e.getMessage());
 		}
 		return response;
@@ -171,6 +189,9 @@ public class AdminOperationsController {
 				response.setDescription("Room list can't be fetched");
 			}
 		} catch (HotelManagementSystemException e) {
+			response.setStatusCode(400);
+			response.setMessage("Failed");
+			response.setDescription(e.getMessage());
 			System.out.println(e.getMessage());
 		}
 		return response;
@@ -192,7 +213,10 @@ public class AdminOperationsController {
 				response.setMessage("Failed");
 				response.setDescription("Unable to add employee");
 			}
-		} catch (HotelManagementSystemException e) {
+		} catch (Exception e) {
+			response.setStatusCode(400);
+			response.setMessage("Failed");
+			response.setDescription(e.getMessage());
 			System.out.println(e.getMessage());
 		}
 		return response;
@@ -213,7 +237,10 @@ public class AdminOperationsController {
 				response.setMessage("Failed");
 				response.setDescription("Employee list can't be fetched");
 			}
-		} catch (HotelManagementSystemException e) {
+		} catch (Exception e) {
+			response.setStatusCode(400);
+			response.setMessage("Failed");
+			response.setDescription(e.getMessage());
 			System.out.println(e.getMessage());
 		}
 		return response;
@@ -235,6 +262,9 @@ public class AdminOperationsController {
 				response.setMessage("Failed");
 			}
 		} catch (HotelManagementSystemException e) {
+			response.setStatusCode(400);
+			response.setMessage("Failed");
+			response.setDescription(e.getMessage());
 			System.err.println(e.getMessage());
 		}
 		return response;
@@ -257,6 +287,9 @@ public class AdminOperationsController {
 				response.setDescription("Employee information not updated");
 			}
 		} catch (HotelManagementSystemException e) {
+			response.setStatusCode(400);
+			response.setMessage("Failed");
+			response.setDescription(e.getMessage());
 			System.err.println(e.getMessage());
 		}
 		return response;

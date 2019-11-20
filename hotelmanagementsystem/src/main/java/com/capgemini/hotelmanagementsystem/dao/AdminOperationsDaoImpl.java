@@ -22,6 +22,7 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 	@PersistenceUnit
 	private EntityManagerFactory entityManagerFactory;
 
+	//--------------------- Hotel Information CRUD--------------------//
 	@Override
 	public HotelInformationBean addHotel(HotelInformationBean hotelBean) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -35,7 +36,7 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 				System.out.println("Hotel already exists");
 			}
 		} catch (Exception e) {
-			// throw new HotelManagementSystemException("Hotel already exists");
+			throw new HotelManagementSystemException("Something went wrong...Hotel can't be added");
 		}
 		return hotelBean;
 	}
@@ -44,12 +45,13 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 	public List<HotelInformationBean> getHotelList() {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		String jpql = "from HotelInformationBean";
-		Query query = entityManager.createQuery(jpql);
+		// Query query = entityManager.createQuery(jpql);
 		List<HotelInformationBean> hotelList = null;
 		try {
+			Query query = entityManager.createQuery(jpql);
 			hotelList = query.getResultList();
 		} catch (Exception e) {
-			throw new HotelManagementSystemException("Hotel list not found");
+			throw new HotelManagementSystemException("Something went wrong... Hotel list not found");
 		}
 		return hotelList;
 	}
@@ -92,7 +94,7 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 			transaction.commit();
 			isUpdated = true;
 		} catch (Exception e) {
-			throw new HotelManagementSystemException("Hotel information can't be updated");
+			throw new HotelManagementSystemException("Something went wrong... Hotel information can't be updated");
 		}
 		entityManager.close();
 		return isUpdated;
@@ -116,7 +118,7 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 				isDeleted = false;
 			}
 		} catch (Exception e) {
-			throw new HotelManagementSystemException("Hotel can't be deleted");
+			throw new HotelManagementSystemException("Something went wrong... Hotel can't be deleted");
 		}
 		return isDeleted;
 	}
@@ -137,12 +139,12 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new HotelManagementSystemException("...........");
+			throw new HotelManagementSystemException("Something went wrong... hotel license not found");
 		}
 		return isPresent;
 	}
-
+	//--------------------- Room Information CRUD--------------------//
+	
 	@Override
 	public RoomInformationBean addRoom(RoomInformationBean roomBean) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -157,7 +159,7 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 			entityManager.persist(roomBean);
 			transaction.commit();
 		} catch (Exception e) {
-			throw new HotelManagementSystemException("Room can't be added");
+			throw new HotelManagementSystemException("Something went wrong... Room can't be added");
 		}
 		return roomBean;
 	}
@@ -178,7 +180,7 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 				isDeleted = true;
 			}
 		} catch (Exception e) {
-			throw new HotelManagementSystemException("Hotel id not found");
+			throw new HotelManagementSystemException("Something went wrong... Hotel id not found");
 		}
 		return isDeleted;
 	}
@@ -192,7 +194,7 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 			Query query = entityManager.createQuery(jpql);
 			roomList = query.getResultList();
 		} catch (Exception e) {
-			throw new HotelManagementSystemException("Room list not found");
+			throw new HotelManagementSystemException("Something went wrong...Room list not found");
 		}
 		return roomList;
 
@@ -217,6 +219,10 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 					existingRoomInformation.setHotelLicense(licenseNumber);
 				}
 			}
+			String imageUrl = roomBean.getRoomImageUrl();
+			if (imageUrl != null) {
+				existingRoomInformation.setRoomImageUrl(imageUrl);
+			}
 			int roomCount = roomBean.getRoomCount();
 			if (roomCount != 0) {
 				existingRoomInformation.setRoomCount(roomCount);
@@ -229,13 +235,13 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 			if (roomCapacity != null) {
 				existingRoomInformation.setRoomCapacity(roomCapacity);
 			}
-			int amount = roomBean.getAmount();
+			int amount = roomBean.getRoomAmount();
 			if (amount != 0) {
-				existingRoomInformation.setAmount(amount);
+				existingRoomInformation.setRoomAmount(amount);
 			}
-			String status = roomBean.getStatus();
+			String status = roomBean.getRoomStatus();
 			if (status != null) {
-				existingRoomInformation.setStatus(status);
+				existingRoomInformation.setRoomStatus(status);
 			}
 			try {
 				transaction.begin();
@@ -243,13 +249,15 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 				transaction.commit();
 				isUpdated = true;
 			} catch (Exception e) {
-				throw new HotelManagementSystemException("Room information can't be updated");
+				throw new HotelManagementSystemException("Something went wrong...Room information can't be updated");
 			}
 			entityManager.close();
 		}
 		return isUpdated;
 	}
 
+	//--------------------- Employee Information CRUD--------------------//
+	
 	@Override
 	public EmployeeInformationBean addEmployee(EmployeeInformationBean employeeBean) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -264,7 +272,7 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 			entityManager.persist(employeeBean);
 			transaction.commit();
 		} catch (Exception e) {
-			throw new HotelManagementSystemException("Employee already exists");
+			throw new HotelManagementSystemException("Something went wrong...Employee can't be added");
 		}
 		AdminEmployeeUserBean employeeInformation = new AdminEmployeeUserBean();
 		employeeInformation.setEmail(employeeBean.getEmail());
@@ -276,21 +284,21 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 			entityManager.persist(employeeInformation);
 			transaction.commit();
 		} catch (Exception e) {
-			throw new HotelManagementSystemException("Employee can't be added");
+			throw new HotelManagementSystemException("Something went wrong...Employee can't be added");
 		}
 		return employeeBean;
 	}
 
 	@Override
 	public List<EmployeeInformationBean> getEmployeeList() {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		String jpql = "from EmployeeInformationBean";
-		Query query = entityManager.createQuery(jpql);
 		List<EmployeeInformationBean> employeeList = null;
 		try {
+			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			String jpql = "from EmployeeInformationBean";
+			Query query = entityManager.createQuery(jpql);
 			employeeList = query.getResultList();
 		} catch (Exception e) {
-			throw new HotelManagementSystemException("Employee list not found");
+			throw new HotelManagementSystemException("Something went wrong...Employee list not found");
 		}
 		return employeeList;
 	}
@@ -298,23 +306,24 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 	@Override
 	public boolean deleteEmployeeInformation(int employeeId) {
 		boolean isDeleted = false;
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
-		String jpql = "delete from EmployeeInformationBean where employeeId = : employeeId";
-
-		String jpql1 = "from EmployeeInformationBean where employeeId = : employeeId";
-		Query query1 = entityManager.createQuery(jpql1);
-		query1.setParameter("employeeId", employeeId);
-		EmployeeInformationBean employeeBean = (EmployeeInformationBean) query1.getSingleResult();
-
-		String jpqlDeleteFromLogin = "delete from AdminEmployeeUserBean where email =: email";
-		Query queryDeleteFromLogin = entityManager.createQuery(jpqlDeleteFromLogin);
-		queryDeleteFromLogin.setParameter("email", employeeBean.getEmail());
-		transaction.begin();
-		int deleted = queryDeleteFromLogin.executeUpdate();
-		transaction.commit();
 
 		try {
+			EntityManager entityManager = entityManagerFactory.createEntityManager();
+			EntityTransaction transaction = entityManager.getTransaction();
+			String jpql = "delete from EmployeeInformationBean where employeeId = : employeeId";
+
+			String jpql1 = "from EmployeeInformationBean where employeeId = : employeeId";
+			Query query1 = entityManager.createQuery(jpql1);
+			query1.setParameter("employeeId", employeeId);
+			EmployeeInformationBean employeeBean = (EmployeeInformationBean) query1.getSingleResult();
+
+			String jpqlDeleteFromLogin = "delete from AdminEmployeeUserBean where email =: email";
+			Query queryDeleteFromLogin = entityManager.createQuery(jpqlDeleteFromLogin);
+			queryDeleteFromLogin.setParameter("email", employeeBean.getEmail());
+			transaction.begin();
+			int deleted = queryDeleteFromLogin.executeUpdate();
+			transaction.commit();
+
 			Query query = entityManager.createQuery(jpql);
 			query.setParameter("employeeId", employeeId);
 			transaction.begin();
@@ -326,7 +335,7 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 				isDeleted = false;
 			}
 		} catch (Exception e) {
-			throw new HotelManagementSystemException("Employee can't be deleted");
+			throw new HotelManagementSystemException("Something went wrong...Employee can't be deleted");
 		}
 		return isDeleted;
 	}
@@ -368,7 +377,7 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 			transaction.commit();
 			isUpdated = true;
 		} catch (Exception e) {
-			throw new HotelManagementSystemException("Employee information can't be updated");
+			throw new HotelManagementSystemException("Something went wrong... Employee information can't be updated");
 		}
 		entityManager.close();
 		return isUpdated;

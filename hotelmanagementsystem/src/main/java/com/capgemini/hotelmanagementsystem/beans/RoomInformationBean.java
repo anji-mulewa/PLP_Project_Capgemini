@@ -24,9 +24,31 @@ public class RoomInformationBean {
 	@Column
 	private String roomCapacity;
 	@Column
-	private int amount;
+	private int roomAmount;
 	@Column
-	private String status;
+	private String roomStatus;
+	@Column
+	private String roomImageUrl;
+	
+	
+	public int getRoomAmount() {
+		return roomAmount;
+	}
+	public void setRoomAmount(int roomAmount) {
+		this.roomAmount = roomAmount;
+	}
+	public String getRoomStatus() {
+		return roomStatus;
+	}
+	public void setRoomStatus(String roomStatus) {
+		this.roomStatus = roomStatus;
+	}
+	public String getRoomImageUrl() {
+		return roomImageUrl;
+	}
+	public void setRoomImageUrl(String roomImageUrl) {
+		this.roomImageUrl = roomImageUrl;
+	}
 	public int getRoomId() {
 		return roomId;
 	}
@@ -70,17 +92,6 @@ public class RoomInformationBean {
 	public void setRoomCapacity(String roomCapacity) {
 		this.roomCapacity = roomCapacity;
 	}
-	public int getAmount() {
-		return amount;
-	}
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	
 	
 }
