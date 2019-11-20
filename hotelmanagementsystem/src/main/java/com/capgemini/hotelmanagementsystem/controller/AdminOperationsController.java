@@ -196,6 +196,30 @@ public class AdminOperationsController {
 		}
 		return response;
 	}
+	
+	@PostMapping(path = "/updateRoomInforamtion")
+	public HotelManagementResponse updateRoomInformation(@RequestBody RoomInformationBean roomBean) {
+		HotelManagementResponse response = new HotelManagementResponse();
+		try {
+			boolean isUpdated = adminOperationsService.updateRoomInformation(roomBean);
+			if (isUpdated) {
+				response.setStatusCode(200);
+				response.setMessage("Success");
+				response.setDescription("Hotel information updated successfully");
+				response.setRoomInformationBean(roomBean);
+			} else {
+				response.setStatusCode(400);
+				response.setMessage("Failed");
+				response.setDescription("Room information not updated");
+			}
+		} catch (Exception e) {
+			response.setStatusCode(400);
+			response.setMessage("Failed");
+			response.setDescription(e.getMessage());
+			System.err.println(e.getMessage());
+		}
+		return response;
+	}
 
 	@PutMapping(path = "/addEmployee", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public HotelManagementResponse addEmployee(@RequestBody EmployeeInformationBean employeeBean) {
