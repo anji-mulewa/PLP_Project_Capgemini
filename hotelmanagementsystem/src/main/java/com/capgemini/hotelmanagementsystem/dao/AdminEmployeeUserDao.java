@@ -5,5 +5,6 @@ import com.capgemini.hotelmanagementsystem.beans.AdminEmployeeUserBean;
 public interface AdminEmployeeUserDao {
 
 	public AdminEmployeeUserBean getLogin( String email , String password);
+	public AdminEmployeeUserBean userRegister(AdminEmployeeUserBean userBean);
 	
 }

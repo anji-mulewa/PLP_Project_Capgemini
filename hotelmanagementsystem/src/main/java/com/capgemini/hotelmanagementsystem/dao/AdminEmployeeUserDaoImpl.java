@@ -2,6 +2,7 @@ package com.capgemini.hotelmanagementsystem.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
@@ -30,5 +31,19 @@ public class AdminEmployeeUserDaoImpl implements AdminEmployeeUserDao {
 			throw new HotelManagementSystem("Invalid login credentials");
 		}
 		return user;
+	}
+
+	@Override
+	public AdminEmployeeUserBean userRegister(AdminEmployeeUserBean userBean) {
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		try {
+			transaction.begin();
+			entityManager.persist(userBean);
+			transaction.commit();
+		} catch (Exception e) {
+			throw new HotelManagementSystem("User already exists");
+		}
+		return userBean;
 	}
 }

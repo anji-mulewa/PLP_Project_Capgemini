@@ -4,6 +4,6 @@ package com.capgemini.hotelmanagementsystem.exception;
 public class HotelManagementSystem extends RuntimeException {
 
 	public HotelManagementSystem(String message) {
-		super();
+		super(message);
 	}
 }
