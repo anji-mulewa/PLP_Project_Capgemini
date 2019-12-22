@@ -1,4 +1,5 @@
 package com.capgemini.hotelmanagementsystem.beans;
+
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,8 +12,42 @@ public class HotelManagementResponse {
 	private AdminEmployeeUserBean adminEmployeeUserBean;
 	private HotelInformationBean hotelInformationBean;
 	private List<HotelInformationBean> hotelList;
-	
-	
+	private RoomInformationBean roomInformationBean;
+	private List<RoomInformationBean> roomList;
+	private EmployeeInformationBean employeeBean;
+	private List<EmployeeInformationBean> employeeList;
+
+	public List<EmployeeInformationBean> getEmployeeList() {
+		return employeeList;
+	}
+
+	public void setEmployeeList(List<EmployeeInformationBean> employeeList) {
+		this.employeeList = employeeList;
+	}
+
+	public EmployeeInformationBean getEmployeeBean() {
+		return employeeBean;
+	}
+
+	public void setEmployeeBean(EmployeeInformationBean employeeBean) {
+		this.employeeBean = employeeBean;
+	}
+
+	public List<RoomInformationBean> getRoomList() {
+		return roomList;
+	}
+
+	public void setRoomList(List<RoomInformationBean> roomList) {
+		this.roomList = roomList;
+	}
+
+	public RoomInformationBean getRoomInformationBean() {
+		return roomInformationBean;
+	}
+
+	public void setRoomInformationBean(RoomInformationBean roomInformationBean) {
+		this.roomInformationBean = roomInformationBean;
+	}
 
 	public List<HotelInformationBean> getHotelList() {
 		return hotelList;

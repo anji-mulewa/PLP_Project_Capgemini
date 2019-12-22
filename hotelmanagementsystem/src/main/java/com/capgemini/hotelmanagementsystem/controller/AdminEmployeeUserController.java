@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.hotelmanagementsystem.beans.AdminEmployeeUserBean;
 import com.capgemini.hotelmanagementsystem.beans.HotelManagementResponse;
-import com.capgemini.hotelmanagementsystem.exception.HotelManagementSystem;
+import com.capgemini.hotelmanagementsystem.exception.HotelManagementSystemException;
 import com.capgemini.hotelmanagementsystem.service.AdminEmployeeUserService;
 
 @RestController
@@ -37,7 +37,7 @@ public class AdminEmployeeUserController {
 				response.setMessage("failed");
 				response.setDescription("Unable to login");
 			}
-		} catch (HotelManagementSystem e) {
+		} catch (HotelManagementSystemException e) {
 			System.out.println(e.getMessage());
 		}
 		return response;

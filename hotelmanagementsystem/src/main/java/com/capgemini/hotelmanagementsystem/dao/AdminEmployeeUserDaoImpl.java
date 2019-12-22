@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.hotelmanagementsystem.beans.AdminEmployeeUserBean;
-import com.capgemini.hotelmanagementsystem.exception.HotelManagementSystem;
+import com.capgemini.hotelmanagementsystem.exception.HotelManagementSystemException;
 
 @Repository
 public class AdminEmployeeUserDaoImpl implements AdminEmployeeUserDao {
@@ -28,7 +28,7 @@ public class AdminEmployeeUserDaoImpl implements AdminEmployeeUserDao {
 		try {
 			user = (AdminEmployeeUserBean) query.getSingleResult();
 		} catch (Exception e) {
-			throw new HotelManagementSystem("Invalid login credentials");
+			throw new HotelManagementSystemException("Invalid login credentials");
 		}
 		return user;
 	}
@@ -42,7 +42,7 @@ public class AdminEmployeeUserDaoImpl implements AdminEmployeeUserDao {
 			entityManager.persist(userBean);
 			transaction.commit();
 		} catch (Exception e) {
-			throw new HotelManagementSystem("User already exists");
+			throw new HotelManagementSystemException("User already exists");
 		}
 		return userBean;
 	}
