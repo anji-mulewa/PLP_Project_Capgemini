@@ -256,6 +256,7 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 		EntityTransaction transaction = entityManager.getTransaction();
 		String jpql = "from HotelInformationBean where licenseNumber =: licenseNumber";
 		Query query = entityManager.createQuery(jpql);
+		query.setParameter("licenseNumber", employeeBean.getHotelLicense());
 		HotelInformationBean hotelInformation = (HotelInformationBean) query.getSingleResult();
 		employeeBean.setHotelId(hotelInformation.getHotelId());
 		try {
