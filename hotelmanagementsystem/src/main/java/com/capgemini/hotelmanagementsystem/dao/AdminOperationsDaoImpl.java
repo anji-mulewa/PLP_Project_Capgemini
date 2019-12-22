@@ -301,6 +301,19 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 		String jpql = "delete from EmployeeInformationBean where employeeId = : employeeId";
+
+		String jpql1 = "from EmployeeInformationBean where employeeId = : employeeId";
+		Query query1 = entityManager.createQuery(jpql1);
+		query1.setParameter("employeeId", employeeId);
+		EmployeeInformationBean employeeBean = (EmployeeInformationBean) query1.getSingleResult();
+
+		String jpqlDeleteFromLogin = "delete from AdminEmployeeUserBean where email =: email";
+		Query queryDeleteFromLogin = entityManager.createQuery(jpqlDeleteFromLogin);
+		queryDeleteFromLogin.setParameter("email", employeeBean.getEmail());
+		transaction.begin();
+		int deleted = queryDeleteFromLogin.executeUpdate();
+		transaction.commit();
+
 		try {
 			Query query = entityManager.createQuery(jpql);
 			query.setParameter("employeeId", employeeId);
@@ -345,7 +358,7 @@ public class AdminOperationsDaoImpl implements AdminOperationsDao {
 				existingEmployeeInformation.setPassword(password);
 			}
 			String employeeName = employeeBean.getName();
-			if(employeeName != null) {
+			if (employeeName != null) {
 				existingEmployeeInformation.setName(name);
 			}
 		}
